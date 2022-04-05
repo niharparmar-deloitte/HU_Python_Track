@@ -10,3 +10,6 @@ class SearchCommonElements(StringClass):
             if d[j] >= 2:
                 ans.append(j)
         return ans
+
+Obj2=SearchCommonElements()
+print(Obj2.commonelements())
