@@ -13,3 +13,7 @@ class StringClass:
 
     def ConvertStringToCharacters(self):
         return list(self.str)
+
+Obj = StringClass('12314532')
+print(Obj.LengthOfString())
+print(Obj.ConvertStringToCharacters())
