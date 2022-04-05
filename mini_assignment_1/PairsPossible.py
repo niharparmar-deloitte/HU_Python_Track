@@ -11,3 +11,6 @@ class PairsPossible(StringClass):
         res = list(combinations(self.str1, 2))
 
         print("All possible pairs : " + str(res))
+
+Obj1 = PairsPossible('12314532')
+print(Obj1.AllPossiblePairs())
