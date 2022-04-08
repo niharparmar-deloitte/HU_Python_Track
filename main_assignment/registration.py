@@ -2,99 +2,25 @@ from openpyxl import Workbook, load_workbook
 
 
 class register:
-    def userregister(self):
-        username = input('Enter username: ')
-        if username in open('register.txt', 'r').read():
-            print('Username already exists')
+    def UserRegister(self):
+        username = input('Please Enter Your Username: ')
+        if username in open('userregister.txt', 'r').read():
+            print('Username Already Exists. Try with a different one')
             return False
-        password = input('Enter password: ')
-        c_password = input('Enter confirm password: ')
+        password = input('Please Enter Your Password: ')
+        c_password = input('Re-Enter Your Password: ')
         if password != c_password:
-            print('password did not match')
+            print('Passwords did not match')
             return False
-        file = open('register.txt', 'a')
+        file = open('userregister.txt', 'a')
         file.write(username)
         file.write(' ')
         file.write(password)
         file.write('\n')
         file.close()
-        print('You are successfully registered ')
+        print(username + ' syour account has been created successfully. Welcome!!')
         return True
 
-    def userlogin(self):
-        print("****Login to BookMyShow: ****")
-        username = input('Enter registered username: ')
-        password = input('Enter registered password: ')
-        get_data = open('register.txt', 'r').readlines()
-        users_data = []
-        for user in get_data:
-            users_data.append(user.split())
 
-        total_user = len(users_data)
-        increment = 0
-        login_success = 0
-        while increment < total_user:
-            usernames = users_data[increment][0]
-            passwords = users_data[increment][1]
-            if username == usernames and password == passwords:
-                login_success = 1
-            increment += 1
 
-        if login_success == 1:
-            print("Login Successful Welcome", username)
-            return True
-        else:
-            print('invalid username or password ')
-            return False
 
-    def movies(self):
-        id = 0
-        print("*** Movies List ***")
-        wb = load_workbook("movies.xlsx")
-        ws = wb.active
-        rows = len(list(ws.rows))
-        range = ws["A1":"A" + str(rows)]
-        for movie in range:
-            for x in movie:
-                id += 1
-                print(id, " ", x.value)
-
-    def movieInfo(self, choice):
-        wb = load_workbook("movies.xlsx")
-        ws = wb.active
-        range = ws[str(choice)]
-        print("*** Movie Information ***")
-        print("||Title||    ||Genre||    ||length||     ||Cast||      ||Capacity||     ||AdminRatings||")
-        for movies in range:
-            print(movies.value, end="     ")
-        wb.save("movies.xlsx")
-        print()
-
-    def cancelTickets(self, choice):  # ws["D"+str(row_number)]=Cast
-        wb = load_workbook("movies.xlsx")
-        ws = wb.active
-        cancel = int(input("Number of seats you want to cancel: "))
-        ws["E" + str(choice)] = ws["E" + str(choice)].value - cancel
-        wb.save("movies.xlsx")
-
-    def Userratings(self, choice):
-        wb = load_workbook("movies.xlsx")
-        ws = wb.active
-        user_rating = input("Enter ratings: ")
-        ws["G" + str(choice)] = user_rating
-        wb.save("movies.xlsx")
-
-    def Booktickets(self, choice):
-        wb = load_workbook("movies.xlsx")
-        ws = wb.active
-        print("*** Welcome to Book Tickets ***")
-        print("Select Timings: ")
-        print("1 -  8:00-10:00")
-        print("2 -  10:30-12:30")
-        print("3 - 1:00-3:00 ")
-        booktime = input()
-        print("Remaining Seats: ", int(ws["E" + str(choice)].value))
-        bookseat = int(input("Enter Number of seats: "))
-        ws["E" + str(choice)] = int(ws["E" + str(choice)].value) - bookseat
-        print("Thanks for booking")
-        wb.save("movies.xlsx")
